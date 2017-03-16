@@ -88,7 +88,7 @@ for rip in np.intersect1d(Hrips,Rrips):
     
 
     #dep_r = cdutil.YEAR.departures(tr,ref=ref)(time=(start_r,'2099-12-31'))
-    dep_r = cdutil.YEAR(tr))(time=(start_r,'2099-12-31'))
+    dep_r = cdutil.YEAR(tr)(time=(start_r,'2099-12-31'))
     try:
         BIG[i] = MV.concatenate((dep_h,dep_r))
     except:
