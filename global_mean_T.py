@@ -75,10 +75,11 @@ for rip in np.intersect1d(Hrips,Rrips):
     stop_h = cmip5.stop_time(th)
     
     cdutil.setTimeBoundsMonthly(th)
-    ref = cdutil.YEAR.climatology(th(time=('1951-1-1','1980-12-31')))
+    #ref = cdutil.YEAR.climatology(th(time=('1951-1-1','1980-12-31')))
 
-    dep_h = cdutil.YEAR.departures(th,ref=ref)(time=(truestart,'2005-12-31'))
-
+    #dep_h = cdutil.YEAR.departures(th,ref=ref)(time=(truestart,'2005-12-31'))
+    dep_h = cdutil.YEAR(th)(time=(truestart,'2005-12-31'))
+    
     tr  = cdutil.averager(fr("tas"),axis='xy')
     start_r = cmip5.start_time(tr)
     stop_r = cmip5.stop_time(tr)
@@ -86,7 +87,8 @@ for rip in np.intersect1d(Hrips,Rrips):
     cdutil.setTimeBoundsMonthly(tr)
     
 
-    dep_r = cdutil.YEAR.departures(tr,ref=ref)(time=(start_r,'2099-12-31'))
+    #dep_r = cdutil.YEAR.departures(tr,ref=ref)(time=(start_r,'2099-12-31'))
+    dep_r = cdutil.YEAR(tr))(time=(start_r,'2099-12-31'))
     try:
         BIG[i] = MV.concatenate((dep_h,dep_r))
     except:
@@ -96,6 +98,8 @@ for rip in np.intersect1d(Hrips,Rrips):
     i+=1
     
 T = np.arange(1900,2100)
+tax = cdms.createAxis(T)
+
 tax.units = 'years since 0001-1-1'
 tax.designateTime()
 
